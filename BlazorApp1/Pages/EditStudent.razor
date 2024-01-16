@@ -1,0 +1,101 @@
+﻿@page "/editstudent/{studentId:int}"
+
+@using BlazorApp1.Models
+@inject StudentService StudentService
+@inject NavigationManager NavigationManager
+
+<h3>Edit Student</h3>
+
+@if (student != null)
+{
+    <form>
+        
+        <div class="form-group">
+            <label for="editStudentName">Student Name:</label>
+            <input id="editStudentName" @bind="student.Student_Name" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="editStudentDOB">Date of Birth:</label>
+            <input id="editStudentDOB" @bind="student.Student_DOB" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="editStudentAge">Age:</label>
+            <input id="editStudentAge" @bind="student.Student_Age" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="editStudentAge">Gender:</label>
+            <input id="editStudentAge" @bind="student.Student_Gender" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="editStudentAge">Mobile:</label>
+            <input id="editStudentAge" @bind="student.Student_Mobile" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="editStudentAge">Address:</label>
+            <input id="editStudentAge" @bind="student.Student_Address" class="form-control" />
+        </div>
+        
+
+        <button type="button" class="btn btn-primary" @onclick="UpdateStudent">Update Student</button>
+    </form>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@*@code {
+    private StudentViewResult student;
+
+    [Parameter]
+    public int StudentId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+           
+            student = await StudentService.GetStudentAsync(StudentId);
+        }
+        catch (Exception ex)
+        {
+            
+            Console.WriteLine($"Error fetching student data: {ex.Message}");
+        }
+    }
+
+    private async Task UpdateStudent()
+    {
+        try
+        {
+            
+            int result = await StudentService.StudentUpdateAsync(
+                student.Student_ID,
+                student.Student_Name,
+                student.Student_DOB,
+                student.Student_Age,
+                student.Student_Gender,
+                student.Student_Mobile,
+                student.Student_Address,
+                student.IsDeleted);
+
+            if (result > 0)
+            {
+                
+                NavigationManager.NavigateTo("/studentlist");
+            }
+            else
+            {
+                
+                Console.WriteLine("Update failed");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating student: {ex.Message}");
+        }
+    }
+}
+*@

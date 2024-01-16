@@ -1,0 +1,73 @@
+﻿{
+   "CodeGenerationMode": 3,
+   "ContextClassName": "StudentDBContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "BlazorApp1",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Student_Table]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Pagination]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[RestoreData]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[SoftDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[StudentAdd]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[StudentDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[StudentUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[StudentView]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": "desktop-6bqam4c.StudentDB.dbo",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
