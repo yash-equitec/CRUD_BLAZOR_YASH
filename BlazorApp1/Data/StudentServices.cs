@@ -9,15 +9,14 @@ public class StudentService
     {
         _dbContext = dbContext;
     }
-
+       
     public async Task<List<StudentViewResult>> GetStudentDataAsync()
     {
         List<StudentViewResult> students = await _dbContext.Procedures.StudentViewAsync();
 
-        // Format the date part only for each student
         foreach (var student in students)
         {
-            student.Student_DOB = student.Student_DOB.Date;
+            student.Student_DOB = student.Student_DOB;
         }
         try
         {
@@ -31,7 +30,7 @@ public class StudentService
     }
 
 
-    public async Task<int> AddStudentAsync(string studentName, DateTime? studentDOB, int? studentAge, string studentGender, int? studentMobile, string studentAddress)
+    public async Task<int> AddStudentAsync(string studentName, DateTime studentDOB, int studentAge, string studentGender, int studentMobile, string studentAddress)
     {
         try
         {
@@ -49,8 +48,8 @@ public class StudentService
         }
     }
 
-    public virtual async Task<int> StudentUpdateAsync(int? Student_ID, string Student_Name, DateTime? Student_DOB, int? Student_Age, string Student_Gender, int? Student_Mobile, string Student_Address, bool? IsDeleted, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
-    {
+       public virtual async Task<int> StudentUpdateAsync(int? Student_ID, string Student_Name, DateTime? Student_DOB, int? Student_Age, string Student_Gender, int? Student_Mobile, string Student_Address, bool? IsDeleted, OutputParameter<int> ?returnValue = null, CancellationToken cancellationToken = default)
+       {
         try
         {
             var result = await _dbContext.Procedures.StudentUpdateAsync(Student_ID, Student_Name, Student_DOB, Student_Age, Student_Gender, Student_Mobile, Student_Address, IsDeleted);
@@ -66,15 +65,16 @@ public class StudentService
 
     public async Task<StudentViewResult> GetStudentAsync(int studentId)
     {
+        var students = await _dbContext.Procedures.StudentViewAsync();
         try
         {
-            var students = await _dbContext.Procedures.StudentViewAsync();
-            return students.FirstOrDefault(student => student.Student_ID == studentId);
+            
+            return students.FirstOrDefault(student => student.Student_ID == studentId) ?? students.First();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error getting student: {ex.Message}");
-            return null;
+            return students.First();
         }
     }
 
@@ -94,5 +94,22 @@ public class StudentService
             Console.WriteLine($"Error deleting student: {ex.Message}");
             return -1;
         }
+    }
+    public async Task<List<SoftDeleteResult>> SoftDeleteAsync()
+    {
+        var result = await _dbContext.Procedures.SoftDeleteAsync();
+        return result;
+    }
+
+    public async Task<int> RestoreStudentAsync(int studentId)
+    { 
+       int result = await _dbContext.Procedures.RestoreDataAsync(studentId);
+        return result;
+    }
+
+    public async Task<List<GetStudentSkillsResult>> Skills()
+    {
+         return await _dbContext.Procedures.GetStudentSkillsAsync();
+      
     }
 }

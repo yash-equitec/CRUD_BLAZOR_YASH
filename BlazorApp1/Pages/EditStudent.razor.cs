@@ -5,10 +5,10 @@ namespace BlazorApp1.Pages
 {
     public partial class EditStudent
     {
-        private StudentViewResult student;
+        private StudentViewResult? student;
 
         [Parameter]
-        public int StudentId { get; set; }
+        public int StudentId { get; set; }  
 
         protected override async Task OnInitializedAsync()
         {
@@ -30,14 +30,15 @@ namespace BlazorApp1.Pages
             {
 
                 int result = await StudentService.StudentUpdateAsync(
-                    student.Student_ID,
-                    student.Student_Name,
-                    student.Student_DOB,
-                    student.Student_Age,
-                    student.Student_Gender,
-                    student.Student_Mobile,
-                    student.Student_Address,
-                    student.IsDeleted);
+                student?.Student_ID ?? 0,
+                student?.Student_Name ?? string.Empty,
+                student?.Student_DOB ?? DateTime.MinValue,
+                student?.Student_Age ?? 0,
+                student?.Student_Gender ?? string.Empty,
+                student?.Student_Mobile ?? 0,
+                student?.Student_Address ?? string.Empty,
+                student?.IsDeleted ?? false);
+
 
                 if (result > 0)
                 {

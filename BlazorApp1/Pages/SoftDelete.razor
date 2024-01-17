@@ -1,0 +1,53 @@
+﻿@page "/softdelete"
+@using BlazorApp1.Models
+@inject StudentService StudentService
+@inject NavigationManager NavigationManager
+<h3>Soft Delete Component</h3>
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Student_Name</th>
+            <th>Student_DOB</th>
+            <th>Student_Age</th>
+            <th>Student_Gender</th>
+            <th>Student_Mobile</th>
+            <th>Student_Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in students)
+        {
+            <tr>
+                <td>@student.Student_Name</td>
+                <td>@student.Student_DOB</td>
+                <td>@student.Student_Age</td>
+                <td>@student.Student_Gender</td>
+                <td>@student.Student_Mobile</td>
+                <td>@student.Student_Address</td>
+                <td><button @onclick="() => RestoreStudent(student.Student_ID)">Restore Student</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<SoftDeleteResult> students = new List<SoftDeleteResult>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            students = await StudentService.SoftDeleteAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data: {ex.Message}");
+        }
+    }
+
+    private void RestoreStudent(int studentId)
+    {
+        NavigationManager.NavigateTo($"/restorestudent/{studentId}");
+    }
+}

@@ -22,4 +22,6 @@ public partial class StudentTable
     public bool IsDeleted { get; set; }
 
     public int StudentId { get; set; }
+
+    public virtual ICollection<SkillsTable> Skills { get; set; } = new List<SkillsTable>();
 }

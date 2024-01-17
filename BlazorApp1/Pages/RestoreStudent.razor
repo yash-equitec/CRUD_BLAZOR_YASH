@@ -1,25 +1,20 @@
-﻿
-@page "/deletestudent/{studentId:int}"
+﻿@page "/restorestudent/{studentId:int}"
 @using BlazorApp1.Models;
-
 @inject StudentService StudentService
 @inject NavigationManager NavigationManager
+<h3>RestoreStudent</h3>
+<button @onclick="RestoreStudentAsync">Restore Student</button>
 
-<h3>Delete Student</h3>
 
-<p>Are you sure you want to delete this student?</p>
-
-<button @onclick="DeleteStudentAsync">Delete Student</button>
-@*
 @code {
     [Parameter]
     public int studentId { get; set; }
 
-    private async Task DeleteStudentAsync()
+    private async Task RestoreStudentAsync()
     {
         try
         {
-            int result = await StudentService.DeleteStudentAsync(studentId);
+            int result = await StudentService.RestoreStudentAsync(studentId);
 
             if (result > 0)
             {
@@ -27,7 +22,7 @@
             }
             else
             {
-                // Handle failure scenario
+                
             }
         }
         catch (Exception ex)
@@ -35,4 +30,4 @@
             Console.WriteLine($"Error deleting student: {ex.Message}");
         }
     }
-}*@
+}

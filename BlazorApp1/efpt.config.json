@@ -16,8 +16,24 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "[dbo].[Skills_Table]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Student_Table]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[StudentSkills]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GetElementByID]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[GetStudentSkills]",
+         "ObjectType": 1
       },
       {
          "Name": "[dbo].[Pagination]",

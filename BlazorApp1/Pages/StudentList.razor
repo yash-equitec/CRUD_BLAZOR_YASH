@@ -8,7 +8,7 @@
 <h3>Student List</h3>
 
 <button class="btn btn-primary mb-3" @onclick="NavigateToAddStudent">Add New Student</button>
-
+<button class="btn btn-primary mb-3" @onclick="SoftDeleteStudent">Deleted Data</button>
 
 <table class="table table-bordered table-striped">
     <thead class="thead-dark">
@@ -19,6 +19,8 @@
             <th>Student_Gender</th>
             <th>Student_Mobile</th>
             <th>Student_Address</th>
+            <th>Student_Skills</th>
+            <th>Update || Delete</th>
         </tr>
     </thead> 
     <tbody> 
@@ -32,6 +34,7 @@
                 <td>@student.Student_Gender</td>
                 <td>@student.Student_Mobile</td>
                 <td>@student.Student_Address</td>
+                <td>@result[student.Student_ID]</td>
                 <td>
                     <button class="btn btn-warning btn-sm" @onclick="() => EditStudent(student.Student_ID)">Edit</button>
                     <button class="btn btn-danger btn-sm" @onclick="() => DeleteStudent(student.Student_ID)">Delete</button>
@@ -74,6 +77,12 @@
         NavigationManager.NavigateTo($"/deletestudent/{studentId}");
     }
 
+     private void SoftDeleteStudent()
+    {
+        NavigationManager.NavigateTo($"/softdelete");
+    }
+
+   
 }
 
 

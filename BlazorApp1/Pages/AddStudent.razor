@@ -1,5 +1,4 @@
-﻿
-@page "/addstudent"
+﻿@page "/addstudent"
 
 @using BlazorApp1.Models
 @inject StudentService StudentService
@@ -7,35 +6,51 @@
 
 <h3>Add New Student</h3>
 
-<form class="mt-3">
-    <div class="form-group">
-        <label for="studentName">Student Name:</label>
-        <input id="studentName" @bind="newStudent.Student_Name" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="studentDOB">Date of Birth:</label>
-        <input id="studentDOB" @bind="newStudent.Student_DOB" type="date" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="studentAge">Age:</label>
-        <input id="studentAge" @bind="newStudent.Student_Age" type="number" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="studentGender">Gender:</label>
-        <input id="studentGender" @bind="newStudent.Student_Gender" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="studentMobile">Mobile:</label>
-        <input id="studentMobile" @bind="newStudent.Student_Mobile" type="tel" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="studentAddress">Address:</label>
-        <input id="studentAddress" @bind="newStudent.Student_Address" class="form-control" required />
-    </div>
+<div>
+    <EditForm Model="newStudent" OnValidSubmit="AddNewStudent">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <label for="studentName">Student Name:</label>
+            <InputText id="studentName" @bind-Value="newStudent.Student_Name" class="form-control" required />
+            <ValidationMessage For="@(() => newStudent.Student_Name)" />
+        </div>
+
+        <div class="form-group">
+            <label for="studentDOB">Date of Birth:</label>
+            <InputDate id="studentDOB" @bind-Value="newStudent.Student_DOB" class="form-control" required />
+            <ValidationMessage For="@(() => newStudent.Student_DOB)" />
+        </div>
+
+        <div class="form-group">
+            <label for="studentAge">Age:</label>
+            <InputNumber id="studentAge" @bind-Value="newStudent.Student_Age" class="form-control" required />
+            <ValidationMessage For="@(() => newStudent.Student_Age)" />
+        </div>
+
+        <div class="form-group">
+            <label for="studentGender">Gender:</label>
+            <InputText id="studentGender" @bind-Value="newStudent.Student_Gender" class="form-control" required />
+            <ValidationMessage For="@(() => newStudent.Student_Gender)" />
+        </div>
+
+        <div class="form-group">
+            <label for="studentMobile">Mobile:</label>
+            <InputNumber id="studentMobile" @bind-Value="newStudent.Student_Mobile" class="form-control" required />
+            <ValidationMessage For="@(() => newStudent.Student_Mobile)" />
+        </div>
+
+        <div class="form-group">
+            <label for="studentAddress">Address:</label>
+            <InputText id="studentAddress" @bind-Value="newStudent.Student_Address" class="form-control" required />
+            <ValidationMessage For="@(() => newStudent.Student_Address)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Student</button>
+    </EditForm>
+</div>
 
 
-    <button type="button" class="btn btn-primary" @onclick="AddNewStudent">Add Student</button>
-</form>
 
 @*@code {
     StudentViewResult newStudent = new StudentViewResult();

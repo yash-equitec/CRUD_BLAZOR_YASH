@@ -13,10 +13,24 @@ public partial class StudentDBContext : DbContext
     {
     }
 
+    public virtual DbSet<SkillsTable> SkillsTables { get; set; }
+
     public virtual DbSet<StudentTable> StudentTables { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<SkillsTable>(entity =>
+        {
+            entity.HasKey(e => e.Skills);
+
+            entity.ToTable("Skills_Table");
+
+            entity.Property(e => e.SkillsName)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<StudentTable>(entity =>
         {
             entity.HasKey(e => e.StudentId).HasName("PK_Student_ID");
@@ -44,6 +58,23 @@ public partial class StudentDBContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Student_Name");
+
+            entity.HasMany(d => d.Skills).WithMany(p => p.Students)
+                .UsingEntity<Dictionary<string, object>>(
+                    "StudentSkill",
+                    r => r.HasOne<SkillsTable>().WithMany()
+                        .HasForeignKey("SkillsId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__StudentSk__Skill__3A81B327"),
+                    l => l.HasOne<StudentTable>().WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__StudentSk__Stude__398D8EEE"),
+                    j =>
+                    {
+                        j.HasKey("StudentId", "SkillsId").HasName("PK__StudentS__7B9F3C747FCE8FCB");
+                        j.ToTable("StudentSkills");
+                    });
         });
 
         OnModelCreatingGeneratedProcedures(modelBuilder);

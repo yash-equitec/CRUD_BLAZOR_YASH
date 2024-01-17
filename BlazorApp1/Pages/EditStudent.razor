@@ -8,43 +8,53 @@
 
 @if (student != null)
 {
-    <form>
-        
+    <EditForm Model="student" OnValidSubmit="UpdateStudent">
+        <DataAnnotationsValidator />
+
         <div class="form-group">
             <label for="editStudentName">Student Name:</label>
-            <input id="editStudentName" @bind="student.Student_Name" class="form-control" />
+            <InputText id="editStudentName" @bind-Value="student.Student_Name" class="form-control" />
+            <ValidationMessage For="@(() => student.Student_Name)" />
         </div>
 
         <div class="form-group">
             <label for="editStudentDOB">Date of Birth:</label>
-            <input id="editStudentDOB" @bind="student.Student_DOB" class="form-control" />
+            <InputDate id="editStudentDOB" @bind-Value="student.Student_DOB" class="form-control" />
+            <ValidationMessage For="@(() => student.Student_DOB)" />
         </div>
 
         <div class="form-group">
             <label for="editStudentAge">Age:</label>
-            <input id="editStudentAge" @bind="student.Student_Age" class="form-control" />
+            <InputNumber id="editStudentAge" @bind-Value="student.Student_Age" class="form-control" />
+            <ValidationMessage For="@(() => student.Student_Age)" />
         </div>
-        <div class="form-group">
-            <label for="editStudentAge">Gender:</label>
-            <input id="editStudentAge" @bind="student.Student_Gender" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="editStudentAge">Mobile:</label>
-            <input id="editStudentAge" @bind="student.Student_Mobile" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="editStudentAge">Address:</label>
-            <input id="editStudentAge" @bind="student.Student_Address" class="form-control" />
-        </div>
-        
 
-        <button type="button" class="btn btn-primary" @onclick="UpdateStudent">Update Student</button>
-    </form>
+        <div class="form-group">
+            <label for="editStudentGender">Gender:</label>
+            <InputText id="editStudentGender" @bind-Value="student.Student_Gender" class="form-control" />
+            <ValidationMessage For="@(() => student.Student_Gender)" />
+        </div>
+
+        <div class="form-group">
+            <label for="editStudentMobile">Mobile:</label>
+            <InputNumber id="editStudentMobile" @bind-Value="student.Student_Mobile" class="form-control" />
+            <ValidationMessage For="@(() => student.Student_Mobile)" />
+        </div>
+
+        <div class="form-group">
+            <label for="editStudentAddress">Address:</label>
+            <InputText id="editStudentAddress" @bind-Value="student.Student_Address" class="form-control" />
+            <ValidationMessage For="@(() => student.Student_Address)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Student</button>
+    </EditForm>
 }
 else
 {
     <p>Loading...</p>
 }
+
 
 @*@code {
     private StudentViewResult student;
@@ -70,7 +80,7 @@ else
     {
         try
         {
-            
+          
             int result = await StudentService.StudentUpdateAsync(
                 student.Student_ID,
                 student.Student_Name,

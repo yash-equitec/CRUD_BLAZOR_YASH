@@ -34,6 +34,8 @@ namespace BlazorApp1.Models
 
         protected void OnModelCreatingGeneratedProcedures(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GetElementByIDResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<GetStudentSkillsResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<PaginationResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<SoftDeleteResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<StudentViewResult>().HasNoKey().ToView(null);
@@ -47,6 +49,52 @@ namespace BlazorApp1.Models
         public StudentDBContextProcedures(StudentDBContext context)
         {
             _context = context;
+        }
+
+        public virtual async Task<List<GetElementByIDResult>> GetElementByIDAsync(int? Student_ID, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Student_ID",
+                    Value = Student_ID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<GetElementByIDResult>("EXEC @returnValue = [dbo].[GetElementByID] @Student_ID", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<GetStudentSkillsResult>> GetStudentSkillsAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<GetStudentSkillsResult>("EXEC @returnValue = [dbo].[GetStudentSkills]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
         }
 
         public virtual async Task<List<PaginationResult>> PaginationAsync(int? PageSize, int? PageNumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
