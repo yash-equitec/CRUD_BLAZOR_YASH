@@ -13,7 +13,8 @@ namespace BlazorApp1.Models
     public partial interface IStudentDBContextProcedures
     {
         Task<List<GetElementByIDResult>> GetElementByIDAsync(int? Student_ID, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
-        Task<List<GetStudentSkillsResult>> GetStudentSkillsAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<List<GetSkillsResult>> GetSkillsAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<List<GetStudentSkillsResult>> GetStudentSkillsAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<PaginationResult>> PaginationAsync(int? PageSize, int? PageNumber, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> RestoreDataAsync(int? Student_ID, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<SoftDeleteResult>> SoftDeleteAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);

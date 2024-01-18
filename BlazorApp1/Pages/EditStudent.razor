@@ -1,52 +1,42 @@
 ﻿@page "/editstudent/{studentId:int}"
-
 @using BlazorApp1.Models
 @inject StudentService StudentService
 @inject NavigationManager NavigationManager
-
 <h3>Edit Student</h3>
-
 @if (student != null)
 {
     <EditForm Model="student" OnValidSubmit="UpdateStudent">
         <DataAnnotationsValidator />
-
         <div class="form-group">
             <label for="editStudentName">Student Name:</label>
             <InputText id="editStudentName" @bind-Value="student.Student_Name" class="form-control" />
             <ValidationMessage For="@(() => student.Student_Name)" />
         </div>
-
         <div class="form-group">
             <label for="editStudentDOB">Date of Birth:</label>
             <InputDate id="editStudentDOB" @bind-Value="student.Student_DOB" class="form-control" />
             <ValidationMessage For="@(() => student.Student_DOB)" />
         </div>
-
         <div class="form-group">
             <label for="editStudentAge">Age:</label>
             <InputNumber id="editStudentAge" @bind-Value="student.Student_Age" class="form-control" />
             <ValidationMessage For="@(() => student.Student_Age)" />
         </div>
-
         <div class="form-group">
             <label for="editStudentGender">Gender:</label>
             <InputText id="editStudentGender" @bind-Value="student.Student_Gender" class="form-control" />
             <ValidationMessage For="@(() => student.Student_Gender)" />
         </div>
-
         <div class="form-group">
             <label for="editStudentMobile">Mobile:</label>
             <InputNumber id="editStudentMobile" @bind-Value="student.Student_Mobile" class="form-control" />
             <ValidationMessage For="@(() => student.Student_Mobile)" />
         </div>
-
         <div class="form-group">
             <label for="editStudentAddress">Address:</label>
             <InputText id="editStudentAddress" @bind-Value="student.Student_Address" class="form-control" />
             <ValidationMessage For="@(() => student.Student_Address)" />
         </div>
-
         <button type="submit" class="btn btn-primary">Update Student</button>
     </EditForm>
 }
@@ -56,56 +46,3 @@ else
 }
 
 
-@*@code {
-    private StudentViewResult student;
-
-    [Parameter]
-    public int StudentId { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-           
-            student = await StudentService.GetStudentAsync(StudentId);
-        }
-        catch (Exception ex)
-        {
-            
-            Console.WriteLine($"Error fetching student data: {ex.Message}");
-        }
-    }
-
-    private async Task UpdateStudent()
-    {
-        try
-        {
-          
-            int result = await StudentService.StudentUpdateAsync(
-                student.Student_ID,
-                student.Student_Name,
-                student.Student_DOB,
-                student.Student_Age,
-                student.Student_Gender,
-                student.Student_Mobile,
-                student.Student_Address,
-                student.IsDeleted);
-
-            if (result > 0)
-            {
-                
-                NavigationManager.NavigateTo("/studentlist");
-            }
-            else
-            {
-                
-                Console.WriteLine("Update failed");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error updating student: {ex.Message}");
-        }
-    }
-}
-*@

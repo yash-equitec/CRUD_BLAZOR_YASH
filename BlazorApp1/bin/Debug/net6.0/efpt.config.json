@@ -28,7 +28,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[SkillsViewModel]",
+         "ObjectType": 3
+      },
+      {
          "Name": "[dbo].[GetElementByID]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[GetSkills]",
          "ObjectType": 1
       },
       {

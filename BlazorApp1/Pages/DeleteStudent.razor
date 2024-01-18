@@ -1,38 +1,9 @@
 ﻿
 @page "/deletestudent/{studentId:int}"
 @using BlazorApp1.Models;
-
 @inject StudentService StudentService
 @inject NavigationManager NavigationManager
-
 <h3>Delete Student</h3>
-
 <p>Are you sure you want to delete this student?</p>
-
 <button @onclick="DeleteStudentAsync">Delete Student</button>
-@*
-@code {
-    [Parameter]
-    public int studentId { get; set; }
 
-    private async Task DeleteStudentAsync()
-    {
-        try
-        {
-            int result = await StudentService.DeleteStudentAsync(studentId);
-
-            if (result > 0)
-            {
-                NavigationManager.NavigateTo("/studentlist");
-            }
-            else
-            {
-                // Handle failure scenario
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error deleting student: {ex.Message}");
-        }
-    }
-}*@

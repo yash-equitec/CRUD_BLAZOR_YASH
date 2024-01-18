@@ -1,11 +1,9 @@
 ﻿using BlazorApp1.Models;
-
 namespace BlazorApp1.Pages
 {
     public partial class AddStudent
     {
         StudentViewResult newStudent = new StudentViewResult();
-
         private async Task AddNewStudent()
         {
             try
@@ -18,15 +16,26 @@ namespace BlazorApp1.Pages
                 }
                 else
                 {
-
+          
                 }
-                
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error adding new student: {ex.Message}");
             }
+        }
+        private List<GetSkillsResult> allSkills = new List<GetSkillsResult>();
+        private List<int> selectedSkills = new List<int>();
+        protected override async Task OnInitializedAsync()
+        {
+            allSkills = await StudentService.GetSkills();
+        }
+        private void ToggleSkill(int skillId)
+        {
+            if (selectedSkills.Contains(skillId))
+                selectedSkills.Remove(skillId);
+            else
+                selectedSkills.Add(skillId);
         }
     }
 }

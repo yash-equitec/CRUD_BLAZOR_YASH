@@ -6,28 +6,4 @@
 <button @onclick="RestoreStudentAsync">Restore Student</button>
 
 
-@code {
-    [Parameter]
-    public int studentId { get; set; }
 
-    private async Task RestoreStudentAsync()
-    {
-        try
-        {
-            int result = await StudentService.RestoreStudentAsync(studentId);
-
-            if (result > 0)
-            {
-                NavigationManager.NavigateTo("/studentlist");
-            }
-            else
-            {
-                
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error deleting student: {ex.Message}");
-        }
-    }
-}

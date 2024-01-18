@@ -5,68 +5,53 @@
 @inject NavigationManager NavigationManager
 
 <h3>Add New Student</h3>
-
+       
 <div>
     <EditForm Model="newStudent" OnValidSubmit="AddNewStudent">
         <DataAnnotationsValidator />
-
         <div class="form-group">
             <label for="studentName">Student Name:</label>
             <InputText id="studentName" @bind-Value="newStudent.Student_Name" class="form-control" required />
             <ValidationMessage For="@(() => newStudent.Student_Name)" />
         </div>
-
         <div class="form-group">
             <label for="studentDOB">Date of Birth:</label>
             <InputDate id="studentDOB" @bind-Value="newStudent.Student_DOB" class="form-control" required />
             <ValidationMessage For="@(() => newStudent.Student_DOB)" />
         </div>
-
         <div class="form-group">
             <label for="studentAge">Age:</label>
             <InputNumber id="studentAge" @bind-Value="newStudent.Student_Age" class="form-control" required />
             <ValidationMessage For="@(() => newStudent.Student_Age)" />
         </div>
-
         <div class="form-group">
             <label for="studentGender">Gender:</label>
             <InputText id="studentGender" @bind-Value="newStudent.Student_Gender" class="form-control" required />
             <ValidationMessage For="@(() => newStudent.Student_Gender)" />
         </div>
-
         <div class="form-group">
             <label for="studentMobile">Mobile:</label>
             <InputNumber id="studentMobile" @bind-Value="newStudent.Student_Mobile" class="form-control" required />
             <ValidationMessage For="@(() => newStudent.Student_Mobile)" />
         </div>
-
         <div class="form-group">
             <label for="studentAddress">Address:</label>
             <InputText id="studentAddress" @bind-Value="newStudent.Student_Address" class="form-control" required />
             <ValidationMessage For="@(() => newStudent.Student_Address)" />
         </div>
-
+        <div class="form-group">
+            <label>Skills:</label>
+            @foreach (var skill in allSkills)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="@(skill.Skills)"
+                           checked="@selectedSkills.Contains(skill.Skills)"
+                    @onchange="@(e => ToggleSkill(skill.Skills))" />
+                    <label class="form-check-label" for="@(skill.Skills)">@skill.SkillsName</label>
+                </div>
+            }
+        </div>
         <button type="submit" class="btn btn-primary">Add Student</button>
     </EditForm>
 </div>
 
-
-
-@*@code {
-    StudentViewResult newStudent = new StudentViewResult();
-
-    private async Task AddNewStudent()
-    {
-        try
-        {
-            int newStudentId = await StudentService.AddStudentAsync(newStudent.Student_Name, newStudent.Student_DOB, newStudent.Student_Age, newStudent.Student_Gender, newStudent.Student_Mobile, newStudent.Student_Address);
-
-                NavigationManager.NavigateTo("/studentlist");
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error adding new student: {ex.Message}");
-        }
-    }
-}*@

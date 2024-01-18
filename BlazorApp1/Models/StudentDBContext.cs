@@ -15,6 +15,8 @@ public partial class StudentDBContext : DbContext
 
     public virtual DbSet<SkillsTable> SkillsTables { get; set; }
 
+    public virtual DbSet<SkillsViewModel> SkillsViewModels { get; set; }
+
     public virtual DbSet<StudentTable> StudentTables { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,6 +26,18 @@ public partial class StudentDBContext : DbContext
             entity.HasKey(e => e.Skills);
 
             entity.ToTable("Skills_Table");
+
+            entity.Property(e => e.SkillsName)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<SkillsViewModel>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("SkillsViewModel");
 
             entity.Property(e => e.SkillsName)
                 .IsRequired()

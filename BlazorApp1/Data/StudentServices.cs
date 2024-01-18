@@ -1,5 +1,4 @@
-﻿// StudentService.cs
-using BlazorApp1.Models;
+﻿using BlazorApp1.Models;
 
 public class StudentService
 {
@@ -9,7 +8,7 @@ public class StudentService
     {
         _dbContext = dbContext;
     }
-       
+
     public async Task<List<StudentViewResult>> GetStudentDataAsync()
     {
         List<StudentViewResult> students = await _dbContext.Procedures.StudentViewAsync();
@@ -37,7 +36,6 @@ public class StudentService
 
             int result = await _dbContext.Procedures.StudentAddAsync(studentName, studentDOB, studentAge, studentGender, studentMobile, studentAddress, false);
 
-
             return result;
         }
         catch (Exception ex)
@@ -48,8 +46,8 @@ public class StudentService
         }
     }
 
-       public virtual async Task<int> StudentUpdateAsync(int? Student_ID, string Student_Name, DateTime? Student_DOB, int? Student_Age, string Student_Gender, int? Student_Mobile, string Student_Address, bool? IsDeleted, OutputParameter<int> ?returnValue = null, CancellationToken cancellationToken = default)
-       {
+    public virtual async Task<int> StudentUpdateAsync(int? Student_ID, string Student_Name, DateTime? Student_DOB, int? Student_Age, string Student_Gender, int? Student_Mobile, string Student_Address, bool? IsDeleted, OutputParameter<int>? returnValue = null, CancellationToken cancellationToken = default)
+    {
         try
         {
             var result = await _dbContext.Procedures.StudentUpdateAsync(Student_ID, Student_Name, Student_DOB, Student_Age, Student_Gender, Student_Mobile, Student_Address, IsDeleted);
@@ -68,7 +66,7 @@ public class StudentService
         var students = await _dbContext.Procedures.StudentViewAsync();
         try
         {
-            
+
             return students.FirstOrDefault(student => student.Student_ID == studentId) ?? students.First();
         }
         catch (Exception ex)
@@ -82,10 +80,7 @@ public class StudentService
     {
         try
         {
-
             int result = await _dbContext.Procedures.StudentDeleteAsync(studentId);
-
-
             return result;
         }
         catch (Exception ex)
@@ -102,14 +97,21 @@ public class StudentService
     }
 
     public async Task<int> RestoreStudentAsync(int studentId)
-    { 
-       int result = await _dbContext.Procedures.RestoreDataAsync(studentId);
+    {
+        int result = await _dbContext.Procedures.RestoreDataAsync(studentId);
         return result;
     }
 
-    public async Task<List<GetStudentSkillsResult>> Skills()
+    public async Task<List<GetStudentSkillsResult>> Skills(int studentId)
     {
-         return await _dbContext.Procedures.GetStudentSkillsAsync();
-      
+
+        return await _dbContext.Procedures.GetStudentSkillsAsync(studentId);
     }
+
+    public async Task<List<GetSkillsResult>> GetSkills()
+    {
+
+        return await _dbContext.Procedures.GetSkillsAsync();
+    }
+
 }
