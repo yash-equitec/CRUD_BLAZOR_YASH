@@ -38,6 +38,23 @@
             <ValidationMessage For="@(() => student.Student_Address)" />
         </div>
         <button type="submit" class="btn btn-primary">Update Student</button>
+
+
+        <ul class="row forumBox">
+            <li class="col-3 required">
+                <label class="inputLabel">
+                    Student Name
+                </label>
+            </li>
+            <li class="col-3">
+                <div class="form_inputBox">
+                    <InputText @bind-Value="student.Student_Name" class="form-control" maxlength="20" />
+                </div>
+                <div class="erroeText">
+                    <ValidationMessage For="(()=>student.Student_Name)"></ValidationMessage>
+                </div>
+            </li>
+        </ul>
     </EditForm>
 }
 else

@@ -9,7 +9,7 @@
 <div>
     <EditForm Model="newStudent" OnValidSubmit="AddNewStudent">
         <DataAnnotationsValidator />
-        <div class="form-group">
+       @* <div class="form-group">
             <label for="studentName">Student Name:</label>
             <InputText id="studentName" @bind-Value="newStudent.Student_Name" class="form-control" required />
             <ValidationMessage For="@(() => newStudent.Student_Name)" />
@@ -51,7 +51,43 @@
                 </div>
             }
         </div>
-        <button type="submit" class="btn btn-primary">Add Student</button>
+        <button type="submit" class="btn btn-primary">Add Student</button>*@
+
+
+        <ul class="row forumBox">
+            <li class="col-3 required">
+                <label class="inputLabel">
+                    Student Name
+                </label>
+            </li>
+            <li class="col-3">
+                <div class="form_inputBox">
+                    <InputText @bind-Value="newStudent.Student_Name" class="form-control" maxlength="20" />
+                </div>
+                <div class="erroeText">
+                    <ValidationMessage For="(()=>newStudent.Student_Name)"></ValidationMessage>
+                </div>
+            </li> 
+            
+            <li class="col-3 required">
+                <label class="inputLabel">
+                     Student_Address
+                </label>
+            </li>
+            <li class="col-3">
+                <div class="form_inputBox">
+                    <InputText @bind-Value="newStudent.Student_Address" class="form-control" maxlength="20" />
+                </div>
+                <div class="erroeText">
+                    <ValidationMessage For="(()=>newStudent.Student_Address)"></ValidationMessage>
+                </div>
+            </li>
+            <li class="col-12">
+                <div class="form_btns">
+                    <button type="submit" class="common_btn btnBlue">Save</button>
+                </div>
+            </li>
+        </ul>
     </EditForm>
 </div>
 
